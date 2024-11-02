@@ -2,7 +2,14 @@
   "dependencies": {
     "firebase": "^11.0.1"
   },
+  "name": "taskpalv2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {},
   "scripts": {
-    "build": "next build && next export"
-  }
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Benjamin Young",
+  "license": "ISC"
 }
