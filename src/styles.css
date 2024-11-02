@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+body {
+    padding: 0;
+    margin: 0;
+    background-color: white;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 100px;
+}
+
+.company-name {
+    font-size: 40px;
+    color: white;
+    font-weight: 400;
+    margin-left: 72px;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #1F2937;
+    margin-bottom: 25px;
+}
+
+.header > ul {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    gap: 16px;
+    margin-right: 72px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    font-size: 24px;
+}
+
+.new-task-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 300px);
+    grid-auto-rows: 100px;
+    grid-gap: 25px;
+    justify-content: center;
+}
+
+.grid-item {
+    background-color: white;
+    border-radius: 20px;
+    border: 2px solid black;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+}
+
+.grid-item-text {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+h2 {
+    margin: 0;
+    padding: 0;
+}
