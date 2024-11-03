@@ -21,10 +21,16 @@ const auth = getAuth();
 
 //TODO: Get email and password from the user. This can be done using firebase UI or a sign up form I create
 
-createUserWithEmailAndPassword(auth, email, password)
+const signUp=document.querySelector(".sign-up-confirm");
+signUp.addEventListener('click', function() {
+    alert("Sign up button clicked");
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         // Signed up 
         const user = userCredential.user;
+        console.log(user);
         // ...
     })
     .catch((error) => {
@@ -32,6 +38,7 @@ createUserWithEmailAndPassword(auth, email, password)
         const errorMessage = error.message;
         // ..
     });
+});
 
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
