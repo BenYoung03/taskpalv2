@@ -1,5 +1,3 @@
-
-
 document.querySelector(".add-task-confirm").addEventListener('click', function() {
     const inputTask = document.querySelector(".form-container input[type='text']");
     const inputDate = document.querySelector(".form-container input[type='date']");
