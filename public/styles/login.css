@@ -49,7 +49,7 @@ body {
     font-size: 12px;
 }
 
-.right > h2{
+.right-header{
     margin: 0px 100px 30px 60px;
 }
 
@@ -96,7 +96,8 @@ p {
     font-size: 15px;
 }
 
-#sign-up-confirm {
+#sign-up-confirm,
+#sign-in-confirm {
     margin: 50px 0px 100px 60px;
     display: flex;
     justify-content: center;
@@ -111,12 +112,30 @@ p {
     cursor: pointer;
 }
 
-#sign-up-confirm:hover {
+#sign-up-confirm:hover, 
+#sign-in-confirm:hover {
     background-color: rgb(255, 0, 0);
 }
 
-#sign-up-confirm:active {
+#sign-up-confirm:active
+#sign-in-confirm:active {
     background-color: rgb(200, 0, 0);
+}
+
+#signUpButton,
+#signInButton {
+    margin: 0px 0px 100px 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 20px;
+    background-color: darkred;
+    color: white;
+    font-size: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .form-content input[type='text'],

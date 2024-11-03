@@ -3,39 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign up</title>
+    <title>TaskPal Account</title>
     <link rel="stylesheet" href="styles/login.css">
     <script type="module" src="index.js" defer></script>
+    <script src="main.js" defer></script>
 </head>
 <body>
     <div class="content">
         <div class="left">
             <div class="logo">
-                <h1 class="logo-text">SIGN UP FORM</h1>
+                <h1 class="logo-text">TASKPAL USER</h1>
             </div>
         </div>
         <div class="right">
-            <h2 class="right-header">
-                Please sign in with your Lakehead email.
-            </h2>
-            <form action="" class="sign-up">
-                <div class="form-container">
-                    <h1>LETS DO THIS!</h1>
-                    <p>* means required</p>
-                <div class="form-content">
-                    <div>
-                        <label for="email">EMAIL*</label>
-                        <input type="email" id="email" name="email" required>
+            <div id="sign-up" style="display:none">
+                <h2 class="right-header">
+                    Please Sign Up Below!
+                </h2>
+                <form action="" class="sign-up">
+                    <div class="form-container">
+                        <h1>LETS DO THIS!</h1>
+                        <p>* means required</p>
+                    <div class="form-content">
+                        <div>
+                            <label for="email">EMAIL*</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div>
+                            <label for="password">PASSWORD*</label>
+                            <input type="password" id="password" name="pass" required>
+                        </div>
                     </div>
-                    <div>
-                        <label for="password">PASSWORD*</label>
-                        <input type="password" id="password" name="pass" required>
                     </div>
-                </div>
-                </div>
-            </form>
-            <button type="button" id="sign-up-confirm">Sign Up</button>
-        </div>
+                </form>
+                <button type="button" id="sign-up-confirm">Sign Up</button>
+                <p>Already have an account?</p>
+                <button id="signInButton">Sign In</button>
+            </div>
+            <div id="sign-in">
+                <h2 class="right-header">
+                    Please Sign In Below!
+                </h2>
+                <form action="" class="sign-up">
+                    <div class="form-container">
+                        <h1>LETS DO THIS!</h1>
+                        <p>* means required</p>
+                    <div class="form-content">
+                        <div>
+                            <label for="email">EMAIL*</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div>
+                            <label for="password">PASSWORD*</label>
+                            <input type="password" id="password" name="pass" required>
+                        </div>
+                    </div>
+                    </div>
+                </form>
+                <button type="button" id="sign-in-confirm">Sign In</button>
+                <p>Don't have an account?</p>
+                <button id="signUpButton">Sign Up</button>
+            </div>
+            </div>
     </div>  
 </body>
 </html>
