@@ -96,7 +96,7 @@ p {
     font-size: 15px;
 }
 
-.sign-up-confirm {
+#sign-up-confirm {
     margin: 50px 0px 100px 60px;
     display: flex;
     justify-content: center;
@@ -111,11 +111,11 @@ p {
     cursor: pointer;
 }
 
-.sign-up-confirm:hover {
+#sign-up-confirm:hover {
     background-color: rgb(255, 0, 0);
 }
 
-.sign-up-confirm:active {
+#sign-up-confirm:active {
     background-color: rgb(200, 0, 0);
 }
 
