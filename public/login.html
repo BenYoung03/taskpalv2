@@ -26,12 +26,20 @@
                         <p>* means required</p>
                     <div class="form-content">
                         <div>
-                            <label for="email">EMAIL*</label>
-                            <input type="email" id="email" name="email" required>
+                            <label for="fName">FIRST NAME*</label>
+                            <input type="text" id="fName" name="fName" required>
                         </div>
                         <div>
-                            <label for="password">PASSWORD*</label>
-                            <input type="password" id="password" name="pass" required>
+                            <label for="lName">LAST NAME*</label>
+                            <input type="text" id="lName" name="lName" required>
+                        </div>
+                        <div>
+                            <label for="emailR">EMAIL*</label>
+                            <input type="email" id="emailR" name="email" required>
+                        </div>
+                        <div>
+                            <label for="passwordR">PASSWORD*</label>
+                            <input type="password" id="passwordR" name="pass" required>
                         </div>
                     </div>
                     </div>
@@ -60,7 +68,12 @@
                     </div>
                     </div>
                 </form>
+                
                 <button type="button" id="sign-in-confirm">Sign In</button>
+                <div class="google-sign-in">
+                    <h1>Google login</h1>
+                    <button id="googleButton"><img src="img/googleIcon.png" alt="Google Sign In" id="googleIcon"></button>
+                </div>
                 <p>Don't have an account?</p>
                 <button id="signUpButton">Sign Up</button>
             </div>
