@@ -123,6 +123,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     // Set welcome message with first name from Firestore
                     const firstName = userData.firstName || "User";
                     document.getElementById("welcome").textContent = `Welcome, ${firstName}!`;
+                    document.getElementById("login").style.display = "none";
+                    document.getElementById("logout").style.display = "block";
                     console.log("Set welcome message to:", `Welcome, ${firstName}!`);
                 } else {
                     console.log("No document found for this user in Firestore.");
@@ -131,11 +133,28 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Google Login: Use displayName directly
                 const displayName = user.displayName || "User";
                 const firstName = displayName.split(" ")[0];
+                document.getElementById("login").style.display = "none";
+                document.getElementById("logout").style.display = "block";
                 document.getElementById("welcome").textContent = `Welcome, ${firstName}!`;
                 console.log("Set welcome message to:", `Welcome, ${firstName}!`);
             }
         } else {
             console.log("No user is signed in.");
         }
+    });
+
+    document.getElementById("logout").addEventListener("click", () => {
+        signOut(auth)
+            .then(() => {
+                console.log("User signed out successfully.");
+                localStorage.removeItem('loggedInUserId');
+                document.getElementById("login").style.display = "block";
+                document.getElementById("logout").style.display = "none";
+                document.getElementById("welcome").textContent = ``;
+                window.location.href = "index.html";
+            })
+            .catch((error) => {
+                console.error("Sign-out error:", error);
+            });
     });
 });
