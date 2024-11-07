@@ -75,6 +75,8 @@ if (signUp) {
                 .catch((error) => {
                     console.error("Error writing document:", error);
                 });
+                signInForm.style.display="block";
+                signUpForm.style.display="none";
         })
         .catch((error) => {
             if(error.code === "auth/email-already-in-use") {
