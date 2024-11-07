@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import {getFirestore, collection, getDocs, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js"
+import {getFirestore, collection, getDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -106,15 +106,36 @@ if (signIn) {
     console.error("Element with id 'sign-in-confirm' not found.");
 }
 
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/auth.user
-        const uid = user.uid;
-        console.log(uid);
-        // ...
-    } else {
-        // User is signed out
-        // ...
-    }
+document.addEventListener("DOMContentLoaded", () => {
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            console.log("User is signed in:", user.uid); // Debugging
+
+            if (user.providerData[0].providerId === "password") {
+                // Retrieve data from Firestore for email/password users
+                const docRef = doc(db, "users", user.uid);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const userData = docSnap.data();
+                    console.log("Retrieved user data from Firestore:", userData); // Debugging Firestore data
+
+                    // Set welcome message with first name from Firestore
+                    const firstName = userData.firstName || "User";
+                    document.getElementById("welcome").textContent = `Welcome, ${firstName}!`;
+                    console.log("Set welcome message to:", `Welcome, ${firstName}!`);
+                } else {
+                    console.log("No document found for this user in Firestore.");
+                }
+            } else {
+                // Google Login: Use displayName directly
+                const displayName = user.displayName || "User";
+                const firstName = displayName.split(" ")[0];
+                document.getElementById("welcome").textContent = `Welcome, ${firstName}!`;
+                console.log("Set welcome message to:", `Welcome, ${firstName}!`);
+            }
+        } else {
+            console.log("No user is signed in.");
+        }
+    });
 });

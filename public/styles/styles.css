@@ -32,7 +32,8 @@ body {
     margin-right: 72px;
 }
 
-a {
+a,
+#welcome {
     text-decoration: none;
     color: white;
     font-size: 24px;
