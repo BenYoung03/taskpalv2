@@ -69,6 +69,7 @@ if (signUp) {
             const docRef = doc(db, "users", userId);
             setDoc(docRef, userData)
                 .then(() => {
+                    document.querySelector('.error').innerHTML = "";
                     window.location.href = 'login.html';
                 })
                 .catch((error) => {
@@ -76,8 +77,16 @@ if (signUp) {
                 });
         })
         .catch((error) => {
+            if(error.code === "auth/email-already-in-use") {
+                document.querySelector('.error-sign-up').innerHTML = "Email already in use.";
+            } else if (error.code === "auth/password-does-not-meet-requirements") {
+                document.querySelector('.error-sign-up').innerHTML = "Password must contain at least 6 characters, Password must contain an upper case character.";
+            } else if (error.code === "auth/invalid-email") {
+                document.querySelector('.error-sign-up').innerHTML = "Invalid email.";
+            } else {
+                document.querySelector('.error-sign-up').innerHTML = error.message;
+            }
             console.error("Sign-up error:", error);
-            //TODO: Add visible error message to the user (example: duplicate account)
         });
     });
 } else {
@@ -97,9 +106,16 @@ if (signIn) {
             window.location.href = "index.html";
         })
         .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // ..
+            if(error.code === "auth/user-not-found") {
+                document.querySelector('.error-sign-in').innerHTML = "User not found. Please register an account with this email.";
+            } else if (error.code === "auth/invalid-credential") {
+                document.querySelector('.error-sign-in').innerHTML = "Wrong email or password. Please try again or register a new account.";
+            } else if (error.code === "auth/invalid-email") {
+                document.querySelector('.error-sign-in').innerHTML = "Invalid email.";
+            } else {
+                document.querySelector('.error-sign-in').innerHTML = error.message;
+            }
+            console.error("Sign-in error:", error); 
         });
     });
 } else {
