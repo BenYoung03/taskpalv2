@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import {getFirestore, collection, getDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js"
+import {getFirestore, collection, getDoc, doc, setDoc, addDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -19,7 +19,6 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 //TODO: Place index.js and main.js in src folder and get them to still work
-//TODO: Add a sign out button
 
 // Google Sign-In
 // TODO: Either remove google sign in or make it work with the database
@@ -127,8 +126,6 @@ if (signIn) {
 document.addEventListener("DOMContentLoaded", () => {
     onAuthStateChanged(auth, async (user) => {
         if (user) {
-            console.log("User is signed in:", user.uid); // Debugging
-
             if (user.providerData[0].providerId === "password") {
                 // Retrieve data from Firestore for email/password users
                 const docRef = doc(db, "users", user.uid);
@@ -136,7 +133,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (docSnap.exists()) {
                     const userData = docSnap.data();
-                    console.log("Retrieved user data from Firestore:", userData); // Debugging Firestore data
 
                     // Set welcome message with first name from Firestore
                     const firstName = userData.firstName || "User";
@@ -156,10 +152,31 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("welcome").textContent = `Welcome, ${firstName}!`;
                 console.log("Set welcome message to:", `Welcome, ${firstName}!`);
             }
-        } else {
-            console.log("No user is signed in.");
-        }
-    });
+
+        //TODO: Perhaps put this code in the main.js file 
+        document.querySelector(".add-task-confirm").addEventListener("click", () => {
+            const userId = user.uid;
+            const taskDesc = document.getElementById("task").value;
+            const dueDate = document.getElementById("due-date").value;
+
+            const taskData = {
+                taskDesc: taskDesc,    
+                dueDate: dueDate,     
+                userId: userId,      
+            };
+                
+            addDoc(collection(db, "tasks"), taskData)
+                .then((docRef) => {
+                    console.log("Document written with ID: ", docRef.id);
+                })
+                .catch((error) => {
+                    //TODO: Add error message on home page if not logged in for example
+                    console.error("Error writing document:", error);
+                });
+        });
+    }
+});
+
 
     document.getElementById("logout").addEventListener("click", () => {
         signOut(auth)
@@ -174,5 +191,5 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch((error) => {
                 console.error("Sign-out error:", error);
             });
-    });
+    }); 
 });
