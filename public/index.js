@@ -28,7 +28,6 @@ const googleSignIn = () => {
         .then((result) => {
             const user = result.user;
             console.log("Google Sign-In successful, user:", user);
-            localStorage.setItem('loggedInUserId', user.uid);
             window.location.href = 'index.html';
         })
         .catch((error) => {
@@ -45,14 +44,17 @@ if (googleSignInButton) {
     });
 }
 
+//Sign up with email and password
 const signUp = document.getElementById("sign-up-confirm");
 if (signUp) {
     signUp.addEventListener('click', function() {
+        //get values from input fields
         const emailR = document.getElementById("emailR").value;
         const passwordR = document.getElementById("passwordR").value;
         const firstName = document.getElementById('fName').value;
         const lastName = document.getElementById('lName').value;
         
+        //call firebase function to create user with email and password
         createUserWithEmailAndPassword(auth, emailR, passwordR)
         .then((userCredential) => {
             // Signed up 
@@ -65,19 +67,23 @@ if (signUp) {
                 email: emailR,
             };
 
+            // Add user data to Firestore by creating a new document with the user's ID and data
             const docRef = doc(db, "users", userId);
             setDoc(docRef, userData)
                 .then(() => {
+                    //redirect to login page
                     document.querySelector('.error').innerHTML = "";
                     window.location.href = 'login.html';
                 })
                 .catch((error) => {
                     console.error("Error writing document:", error);
                 });
+                //show sign in form
                 signInForm.style.display="block";
                 signUpForm.style.display="none";
         })
         .catch((error) => {
+            //various error handling
             if(error.code === "auth/email-already-in-use") {
                 document.querySelector('.error-sign-up').innerHTML = "Email already in use.";
             } else if (error.code === "auth/password-does-not-meet-requirements") {
@@ -94,19 +100,22 @@ if (signUp) {
     console.error("Element with id 'sign-up-confirm' not found.");
 }
 
+//Sign in with email and password
 const signIn = document.getElementById("sign-in-confirm");
 if (signIn) {
     signIn.addEventListener('click', function() {
+        //get values from input fields
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
+        //call firebase function to sign in user with email and password
         signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in 
+        .then((userCredential) => { 
             const user = userCredential.user;
-            localStorage.setItem('loggedInUserId', user.uid);
+            //Redirect to main page
             window.location.href = "index.html";
         })
         .catch((error) => {
+            //various error handling
             if(error.code === "auth/user-not-found") {
                 document.querySelector('.error-sign-in').innerHTML = "User not found. Please register an account with this email.";
             } else if (error.code === "auth/invalid-credential") {
@@ -126,6 +135,7 @@ if (signIn) {
 document.addEventListener("DOMContentLoaded", () => {
     onAuthStateChanged(auth, async (user) => {
         if (user) {
+            //Remove logged out text warning if a user is detected
             document.getElementById("logged-out-text").style.display = "none";
             if (user.providerData[0].providerId === "password") {
                 // Retrieve data from Firestore for email/password users
@@ -138,9 +148,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     // Set welcome message with first name from Firestore
                     const firstName = userData.firstName || "User";
                     document.getElementById("welcome").textContent = `Welcome, ${firstName}!`;
+                    //Display logout button and hide login when user is logged in
                     document.getElementById("login").style.display = "none";
                     document.getElementById("logout").style.display = "block";
-                    console.log("Set welcome message to:", `Welcome, ${firstName}!`);
                 } else {
                     console.log("No document found for this user in Firestore.");
                 }
@@ -154,8 +164,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log("Set welcome message to:", `Welcome, ${firstName}!`);
             }
 
-        //TODO: Perhaps put this code in the main.js file 
+        //Add task to Firestore
         document.querySelector(".add-task-confirm").addEventListener("click", () => {
+            //Get values from input fields and current user ID
             const userId = user.uid;
             const taskDesc = document.getElementById("task").value;
             const dueDate = document.getElementById("due-date").value;
@@ -166,22 +177,27 @@ document.addEventListener("DOMContentLoaded", () => {
                 userId: userId,      
             };
                 
+            //Add task to Firestore
             addDoc(collection(db, "tasks"), taskData)
                 .then((docRef) => {
                     console.log("Document written with ID: ", docRef.id);
                 })
                 .catch((error) => {
-                    //TODO: Add error message on home page if not logged in for example
                     console.error("Error writing document:", error);
                 });
         });
         
+        //Update the grid container with tasks from Firestore
+
+        //Gets all tasks from Firestore where the userId matches the current user's ID
         const tasksQuery = query(collection(db, "tasks"), where("userId", "==", user.uid));
         const querySnapshot = await getDocs(tasksQuery);
 
+        //Clear the grid container before adding new tasks
         const gridContainer = document.querySelector(".grid-container");
-        gridContainer.innerHTML = ""; // Clear the grid container
+        gridContainer.innerHTML = ""; 
 
+        //Iterate through each task and add it to the grid container
         querySnapshot.forEach((doc) => {
             const taskData = doc.data();
 
@@ -207,6 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
             newItemContainer.appendChild(completeButton);
         });
     } else {
+        //If there is no user signed in, then hide the task confirm button and show the login button
         console.log("No user is signed in.");
         document.querySelector(".add-task-confirm").style.display = "none";
         document.getElementById("login").style.display = "block";
@@ -215,12 +232,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-
+    //Logout button
     document.getElementById("logout").addEventListener("click", () => {
         signOut(auth)
             .then(() => {
+                //Show login button and hide logout button on sign out
                 console.log("User signed out successfully.");
-                localStorage.removeItem('loggedInUserId');
                 document.getElementById("login").style.display = "block";
                 document.getElementById("logout").style.display = "none";
                 document.getElementById("welcome").textContent = ``;
