@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import {getFirestore, collection, getDoc, doc, setDoc, addDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js"
+import {getFirestore, collection, getDoc, getDocs, doc, setDoc, addDoc, query, where } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -173,6 +173,32 @@ document.addEventListener("DOMContentLoaded", () => {
                     //TODO: Add error message on home page if not logged in for example
                     console.error("Error writing document:", error);
                 });
+        });
+        
+        const tasksQuery = query(collection(db, "tasks"), where("userId", "==", user.uid));
+        const querySnapshot = await getDocs(tasksQuery);
+
+        const gridContainer = document.querySelector(".grid-container");
+        gridContainer.innerHTML = ""; // Clear the grid container
+
+        querySnapshot.forEach((doc) => {
+            const taskData = doc.data();
+
+            const newItemContainer = document.createElement("div");
+            newItemContainer.classList.add("grid-item");
+            gridContainer.appendChild(newItemContainer);
+
+            const newItemText = document.createElement("div");
+            newItemText.classList.add("grid-item-text");
+            newItemContainer.appendChild(newItemText);
+
+            const taskHeader = document.createElement("h2");
+            taskHeader.textContent = taskData.taskDesc;
+            newItemText.appendChild(taskHeader);
+
+            const dueDate = document.createElement("p");
+            dueDate.textContent = taskData.dueDate;
+            newItemText.appendChild(dueDate);
         });
     }
 });
