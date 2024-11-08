@@ -205,6 +205,12 @@ document.addEventListener("DOMContentLoaded", () => {
             completeButton.textContent = "Complete";
             newItemContainer.appendChild(completeButton);
         });
+    } else {
+        console.log("No user is signed in.");
+        document.querySelector(".add-task-confirm").style.display = "none";
+        document.getElementById("login").style.display = "block";
+        document.getElementById("logout").style.display = "none";
+        document.getElementById("welcome").textContent = ``;
     }
 });
 

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 body {
     padding: 0;
     margin: 0;
@@ -49,6 +49,20 @@ a,
 .form-container {
     display: flex;
     flex-direction: column;
+}
+
+.logged-out {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#logged-out-text{
+    font-size: 24px;
+    color: darkred;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgb(200, 200, 200);
 }
 
 .grid-container {
