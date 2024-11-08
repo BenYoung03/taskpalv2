@@ -126,6 +126,7 @@ if (signIn) {
 document.addEventListener("DOMContentLoaded", () => {
     onAuthStateChanged(auth, async (user) => {
         if (user) {
+            document.getElementById("logged-out-text").style.display = "none";
             if (user.providerData[0].providerId === "password") {
                 // Retrieve data from Firestore for email/password users
                 const docRef = doc(db, "users", user.uid);
