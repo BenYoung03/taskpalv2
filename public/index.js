@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import {getFirestore, collection, getDoc, getDocs, doc, setDoc, addDoc, query, where } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js"
+import {getFirestore, collection, getDoc, getDocs, doc, setDoc, addDoc, query, where, deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -199,6 +199,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const dueDate = document.createElement("p");
             dueDate.textContent = taskData.dueDate;
             newItemText.appendChild(dueDate);
+
+            const completeButton = document.createElement("button");
+            completeButton.classList.add("complete-task");
+            completeButton.textContent = "Complete";
+            newItemContainer.appendChild(completeButton);
         });
     }
 });

@@ -18,4 +18,16 @@ document.querySelector(".add-task-confirm").addEventListener('click', function()
     const dueDate = document.createElement("p");
     dueDate.textContent = inputDate.value; 
     newItemText.appendChild(dueDate);
+
+    const completeButton = document.createElement("button");
+    completeButton.classList.add("complete-task");
+    completeButton.textContent = "Complete";
+    newItemContainer.appendChild(completeButton);
+
+    /*
+    TODO: Add implementation where on click of complete button, the task is removed from the grid and removed from firestore
+    completeButton.addEventListener('click', function() {
+        gridContainer.removeChild(newItemContainer);
+    });
+    */
 });

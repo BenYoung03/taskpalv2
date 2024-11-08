@@ -37,11 +37,6 @@ body {
     overflow-wrap: break-word;
 }
 
-.odin-logo {
-    max-width: 100px;
-    max-height: 100px;
-}
-
 .right{
     width: 100%;
     height: 100%;
@@ -99,9 +94,6 @@ p {
 #sign-up-confirm,
 #sign-in-confirm {
     margin: 20px 0px 20px 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 250px;
     height: 60px;
     background-color: darkred;
@@ -125,9 +117,6 @@ p {
 #signUpButton,
 #signInButton {
     margin: 0px 0px 100px 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 100px;
     height: 20px;
     background-color: darkred;
