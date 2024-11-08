@@ -105,7 +105,9 @@ p {
 }
 
 #sign-up-confirm:hover, 
-#sign-in-confirm:hover {
+#sign-in-confirm:hover,
+#signUpButton:hover,
+#signInButton:hover {
     background-color: rgb(255, 0, 0);
 }
 
