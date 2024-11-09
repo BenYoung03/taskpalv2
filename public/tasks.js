@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }());
                         setTimeout(() => {
                             gridContainer.removeChild(newItemContainer);
-                        }, 300);                        
+                        }, 100);                        
                         console.log("Document deleted with ID: ", docRef.id);    
                     });
                 })
@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }());
                 setTimeout(() => {
                     gridContainer.removeChild(newItemContainer);
-                }, 300);  
+                }, 100);  
                 console.log("Document deleted with ID: ", taskDoc.id);    
             });
         });
