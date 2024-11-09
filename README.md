@@ -10,7 +10,7 @@ This application was developed for COMP-4312 - Cloud Computing at Lakehead Unive
 - **Real-time Updates**: Firebase integration allows users to view and update their tasks across devices.
 
 ## Using the application
-TaskPal can be visited by clicking [here](taskpal-75c5d.web.app). Feel free to create an account and add some tasks! 
+TaskPal can be visited by clicking [here](https://taskpal-75c5d.web.app). Feel free to create an account and add some tasks! 
 
 ## Installation
 If you would like to clone the repository, here is how to do so:
