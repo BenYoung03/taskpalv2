@@ -2,6 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import {getFirestore, collection, getDocs, doc, addDoc, query, where, deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js"
+import confetti from 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.module.mjs';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -17,7 +18,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-
 
 document.addEventListener("DOMContentLoaded", () => {
     onAuthStateChanged(auth, async (user) => {
@@ -63,7 +63,33 @@ document.addEventListener("DOMContentLoaded", () => {
                     console.log("Document written with ID: ", docRef.id);
                     completeButton.addEventListener('click', async function() {
                         await deleteDoc(doc(db, "tasks", docRef.id));
-                        gridContainer.removeChild(newItemContainer);
+                        var end = Date.now() + (13 * 85);
+
+                        var colors = ['#bb0000', '#ffffff'];
+
+                        (function frame() {
+                        confetti({
+                            particleCount: 2,
+                            angle: 60,
+                            spread: 55,
+                            origin: { x: 0 },
+                            colors: colors
+                        });
+                        confetti({
+                            particleCount: 2,
+                            angle: 120,
+                            spread: 55,
+                            origin: { x: 1 },
+                            colors: colors
+                        });
+
+                        if (Date.now() < end) {
+                            requestAnimationFrame(frame);
+                        }
+                    }());
+                        setTimeout(() => {
+                            gridContainer.removeChild(newItemContainer);
+                        }, 300);                        
                         console.log("Document deleted with ID: ", docRef.id);    
                     });
                 })
@@ -107,7 +133,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
             completeButton.addEventListener('click', async function() {
                 await deleteDoc(doc(db, "tasks", taskDoc.id));
-                gridContainer.removeChild(newItemContainer);
+                var end = Date.now() + (13 * 85);
+
+                var colors = ['#bb0000', '#ffffff'];
+
+                (function frame() {
+                confetti({
+                    particleCount: 2,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: colors
+                });
+                confetti({
+                    particleCount: 2,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: colors
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+                setTimeout(() => {
+                    gridContainer.removeChild(newItemContainer);
+                }, 300);  
                 console.log("Document deleted with ID: ", taskDoc.id);    
             });
         });
