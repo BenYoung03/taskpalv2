@@ -22,16 +22,18 @@ const db = getFirestore(app);
 document.addEventListener("DOMContentLoaded", () => {
     onAuthStateChanged(auth, async (user) => {
         if (user) {
-            //Add task to Firestore
+            //Add task to Firestore and frontend
             document.querySelector(".add-task-confirm").addEventListener("click", () => {
             //Get values from input fields and current user ID
             const userId = user.uid;
             const taskDesc = document.getElementById("task").value;
             const dueDate = document.getElementById("due-date").value;
+            const priority = document.getElementById("priority").value;
 
             const taskData = {
                 taskDesc: taskDesc,    
-                dueDate: dueDate,     
+                dueDate: dueDate, 
+                priority: priority,    
                 userId: userId,      
             };
 
@@ -56,8 +58,18 @@ document.addEventListener("DOMContentLoaded", () => {
             completeButton.classList.add("complete-task");
             completeButton.textContent = "Complete";
             newItemContainer.appendChild(completeButton);
+
+            const priorityText=document.createElement("p");
+            switch(priority){
+                case "2":
+                    priorityText.textContent = "High";
+                case "1":
+                    priorityText.textContent = "Medium";
+                case "0":
+                    priorityText.textContent = "Low";
+            }
+            newItemText.appendChild(priorityText)
                 
-            //Add task to Firestore
             addDoc(collection(db, "tasks"), taskData)
                 .then((docRef) => {
                     console.log("Document written with ID: ", docRef.id);
@@ -125,11 +137,22 @@ document.addEventListener("DOMContentLoaded", () => {
             const dueDate = document.createElement("p");
             dueDate.textContent = taskData.dueDate;
             newItemText.appendChild(dueDate);
-
+    
             const completeButton = document.createElement("button");
             completeButton.classList.add("complete-task");
             completeButton.textContent = "Complete";
             newItemContainer.appendChild(completeButton);
+
+            const priorityText=document.createElement("h2");
+            switch(taskData.priority){
+                case 2:
+                    priorityText.textContent = "High";
+                case 1:
+                    priorityText.textContent = "Medium";
+                case 0:
+                    priorityText.textContent = "Low";
+            }
+            newItemText.appendChild(priorityText)
 
             completeButton.addEventListener('click', async function() {
                 await deleteDoc(doc(db, "tasks", taskDoc.id));
