@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
             //Add task to Firestore and frontend
             document.querySelector(".add-task-confirm").addEventListener("click", () => {
             //Get values from input fields and current user ID
+            //TODO: Get priority as an integer not string
             const userId = user.uid;
             const taskDesc = document.getElementById("task").value;
             const dueDate = document.getElementById("due-date").value;
@@ -60,13 +61,14 @@ document.addEventListener("DOMContentLoaded", () => {
             newItemContainer.appendChild(completeButton);
 
             const priorityText=document.createElement("p");
-            switch(priority){
-                case "2":
-                    priorityText.textContent = "High";
-                case "1":
-                    priorityText.textContent = "Medium";
-                case "0":
-                    priorityText.textContent = "Low";
+            if(priority == "2"){
+                priorityText.textContent = "High";
+                    priorityText.style.fontWeight = 'bold';
+            } else if (priority == "1"){
+                priorityText.textContent = "Medium";
+                    priorityText.style.fontWeight = '500'
+            } else {
+                priorityText.textContent = "Low";
             }
             newItemText.appendChild(priorityText)
                 
@@ -143,14 +145,15 @@ document.addEventListener("DOMContentLoaded", () => {
             completeButton.textContent = "Complete";
             newItemContainer.appendChild(completeButton);
 
-            const priorityText=document.createElement("h2");
-            switch(taskData.priority){
-                case 2:
-                    priorityText.textContent = "High";
-                case 1:
-                    priorityText.textContent = "Medium";
-                case 0:
-                    priorityText.textContent = "Low";
+            const priorityText=document.createElement("p");
+            if(taskData.priority == "2"){
+                priorityText.textContent = "High";
+                    priorityText.style.fontWeight = 'bold';
+            } else if (taskData.priority == "1"){
+                priorityText.textContent = "Medium";
+                    priorityText.style.fontWeight = '500'
+            } else {
+                priorityText.textContent = "Low";
             }
             newItemText.appendChild(priorityText)
 
