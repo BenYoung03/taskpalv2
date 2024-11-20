@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import {getFirestore,  getDoc,  doc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js"
 
 // Your web app's Firebase configuration
@@ -22,7 +22,7 @@ const db = getFirestore(app);
 //TODO: Seperate authentication functionality and homepage functionality to reduce console errors
 
 // Google Sign-In
-// TODO: Make google sign in work with the database
+// TODO: Either remove google sign in or make it work with the database
 const googleProvider = new GoogleAuthProvider();
 const googleSignIn = () => {
     signInWithPopup(auth, googleProvider)
@@ -133,52 +133,11 @@ if (signIn) {
     console.error("Element with id 'sign-in-confirm' not found.");
 }
 
-const resetPasswordConfirm = document.getElementById("reset-password-confirm");
-    if (resetPasswordConfirm) {
-        resetPasswordConfirm.addEventListener('click', function() {
-            console.log("Reset password button clicked"); // Debug log
-            const email = document.getElementById('reset-email').value;
-            const resetPasswordForm = document.getElementById('reset-password-form');
-            const signInForm = document.getElementById('sign-in');
-
-            if (email) {
-                sendPasswordResetEmail(auth, email)
-                    .then(() => {
-                        const resetPasswordMessage = document.querySelector('.error-reset-password');
-                        resetPasswordMessage.textContent = 'Password reset email sent!';
-                        resetPasswordMessage.style.color = 'green';
-                        resetPasswordConfirm.style.display = "none";
-
-                        setTimeout(() => {
-                            resetPasswordForm.classList.add('fade-out');
-                            resetPasswordForm.classList.remove('fade-in');
-                            signInForm.classList.add('fade-in');
-                            signInForm.classList.remove('fade-out');
-                            setTimeout(() => {
-                                resetPasswordForm.style.display = "none";
-                                signInForm.style.display = "block";
-                            }, 500);
-                        }, 2000);
-                    })
-                    .catch((error) => {
-                        const resetPasswordMessage = document.querySelector('.error-reset-password');
-                        resetPasswordMessage.textContent = error.message
-                        resetPasswordMessage.style.color = 'red';
-                        console.error('Error sending password reset email:', error);
-                    });
-            } else {
-                const resetPasswordMessage = document.querySelector('.error-reset-password');
-                resetPasswordMessage.textContent = 'Please enter your email address.';
-                resetPasswordMessage.style.color = 'red';
-            }
-        });
-    } else {
-        console.error("Element with id 'reset-password-confirm' not found.");
-}
-
+const formContainer = document.querySelector(".form-container");
 document.addEventListener("DOMContentLoaded", () => {
     onAuthStateChanged(auth, async (user) => {
         if (user) {
+            formContainer.style.display = "flex";
             //Remove logged out text warning if a user is detected
             document.getElementById("logged-out-text").style.display = "none";
             if (user.providerData[0].providerId === "password") {
@@ -211,11 +170,11 @@ document.addEventListener("DOMContentLoaded", () => {
         //If there is no user signed in, then hide the task confirm button and show the login button
         console.log("No user is signed in.");
         document.querySelector(".add-task-confirm").style.display = "none";
+        formContainer.style.display = "none";
         document.getElementById("login").style.display = "block";
         document.getElementById("logout").style.display = "none";
         document.getElementById("welcome").textContent = ``;
     }
-    });   
 });
 
     //Logout button
@@ -232,8 +191,5 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch((error) => {
                 console.error("Sign-out error:", error);
             });
-}); 
-
-
-
-
+    }); 
+});
