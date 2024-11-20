@@ -81,7 +81,7 @@ a,
 }
 
 #priority-filter{
-    width: 70%;
+    width: 100%;
 }
 
 #priority,
@@ -156,8 +156,7 @@ p {
 }
 
 .complete-task,
-.add-task-confirm,
-.filter-confirm {
+.add-task-confirm {
     background-color: darkred;
     color: white;
     border: none;
@@ -178,7 +177,28 @@ p {
     background-color: rgb(255, 0, 0);
 }
 
+.filter-button-container{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0px 0px 0px;
+}
+
+.filter-confirm,
+.filter-clear{
+    background-color: darkred;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
 .filter-confirm{
+    width: 70%;
+}
+
+.filter-clear{
     width: 25%;
 }
 
