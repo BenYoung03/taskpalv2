@@ -47,6 +47,9 @@ if (googleSignInButton) {
 
 //Sign up with email and password
 const signUp = document.getElementById("sign-up-confirm");
+const signInForm = document.getElementById('sign-in');
+const signUpForm = document.getElementById('sign-up');
+
 if (signUp) {
     signUp.addEventListener('click', function() {
         //get values from input fields
@@ -74,7 +77,14 @@ if (signUp) {
                 .then(() => {
                     //redirect to login page
                     document.querySelector('.error').innerHTML = "";
-                    window.location.href = 'login.html';
+                    signUpForm.classList.add('fade-out');
+                    signUpForm.classList.remove('fade-in');
+                    signInForm.classList.add('fade-in');
+                    signInForm.classList.remove('fade-out');
+                    setTimeout(() => {
+                        signUpForm.style.display = "none";
+                        signInForm.style.display = "block";
+                    }, 500);
                 })
                 .catch((error) => {
                     console.error("Error writing document:", error);
