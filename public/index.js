@@ -172,6 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("logout").style.display = "none";
         document.getElementById("welcome").textContent = ``;
     }
+    });   
 });
 
     //Logout button
@@ -188,5 +189,30 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch((error) => {
                 console.error("Sign-out error:", error);
             });
-    }); 
+}); 
+
+const resetPasswordConfirm = document.getElementById("reset-password-confirm")
+resetPasswordConfirm.addEventListener('click', function() {
+    const email = document.getElementById('reset-email').value;
+
+    if (email) {
+        sendPasswordResetEmail(auth, email)
+            .then(() => {
+                const resetPasswordMessage = document.querySelector('.error-reset-password');
+                resetPasswordMessage.textContent = 'Password reset email sent!';
+                resetPasswordMessage.style.color = 'green';
+            })
+            .catch((error) => {
+                const resetPasswordMessage = document.querySelector('.error-reset-password');
+                resetPasswordMessage.textContent = 'Error sending password reset email.';
+                resetPasswordMessage.style.color = 'red';
+                console.error('Error sending password reset email:', error);
+            });
+    } else {
+        const resetPasswordMessage = document.querySelector('.error-reset-password');
+        resetPasswordMessage.textContent = 'Please enter your email address.';
+        resetPasswordMessage.style.color = 'red';
+    }
 });
+
+

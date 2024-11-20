@@ -70,12 +70,34 @@
                     </div>
                 </form>
                 <p class="error-sign-in"></p>
+                <p id="reset-password">Forget password?</p>
                 <div class="sign-in-options">
                     <button type="button" id="sign-in-confirm">Sign In</button>
                     <button id="googleButton"><img src="img/googleIcon.png" alt="Google Sign In" id="googleIcon"></button>
                 </div>
                 <p>Don't have an account?</p>
                 <button id="signUpButton">Sign Up</button>
+            </div>
+            <div id="reset-password-form" style="display:none">
+                <h2 class="right-header">
+                    Reset Password
+                </h2>
+                <form action="" class="reset-password">
+                    <div class="form-container">
+                        <h1>TASKPAL RESET PASSWORD</h1>
+                        <p>* means required</p>
+                    <div class="form-content">
+                        <div>
+                            <label for="reset-email">EMAIL*</label>
+                            <input type="email" id="reset-email" name="reset-email" required>
+                        </div>
+                    </div>
+                    </div>
+                </form>
+                <p class="error-reset-password"></p>
+                <button type="button" id="reset-password-confirm">Send Reset Email</button>
+                <p>Remembered your password?</p>
+                <button id="backToSignInButton">Sign In</button>
             </div>
             </div>
     </div>  

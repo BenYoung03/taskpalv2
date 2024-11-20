@@ -90,7 +90,8 @@ p {
 }
 
 #sign-up-confirm,
-#sign-in-confirm {
+#sign-in-confirm,
+#reset-password-confirm {
     margin: 20px 0px 20px 60px;
     width: 250px;
     height: 60px;
@@ -105,17 +106,20 @@ p {
 #sign-up-confirm:hover, 
 #sign-in-confirm:hover,
 #signUpButton:hover,
-#signInButton:hover {
+#signInButton:hover,
+#reset-password-confirm:hover {
     background-color: rgb(255, 0, 0);
 }
 
 #sign-up-confirm:active
-#sign-in-confirm:active {
+#sign-in-confirm:active,
+#reset-password-confirm:active {
     background-color: rgb(200, 0, 0);
 }
 
 #signUpButton,
-#signInButton {
+#signInButton,
+#backToSignInButton {
     margin: 0px 0px 100px 60px;
     width: 100px;
     height: 20px;
@@ -158,10 +162,20 @@ p {
     border: 1px solid green;
 }
 
+#reset-password{
+    color: darkred;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#reset-password:hover{
+    color: rgb(255, 0, 0);
+}
+
 .sign-in-options {
     display: flex;
     align-items: center;
-    gap: 10px; /* Adjust the gap as needed */
+    gap: 10px; 
 }
 
 #googleIcon{
