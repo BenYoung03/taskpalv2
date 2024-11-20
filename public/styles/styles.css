@@ -75,7 +75,17 @@ a,
     background-color: #ccc;
 }
 
-#priority {
+.filter-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+#priority-filter{
+    width: 70%;
+}
+
+#priority,
+#priority-filter {
     border: 1px solid rgb(204, 204, 204);
     box-shadow: inset 1px 1px 3px #ccc;
     font-size: 16px;
@@ -146,7 +156,8 @@ p {
 }
 
 .complete-task,
-.add-task-confirm{
+.add-task-confirm,
+.filter-confirm {
     background-color: darkred;
     color: white;
     border: none;
@@ -165,5 +176,9 @@ p {
 .add-task-confirm:hover, 
 .complete-task:hover {
     background-color: rgb(255, 0, 0);
+}
+
+.filter-confirm{
+    width: 25%;
 }
 
