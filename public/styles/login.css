@@ -187,6 +187,28 @@ p {
     text-shadow: 1px 1px 1px rgb(200, 200, 200);
 }
 
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+.fade-out {
+    opacity: 1;
+    animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}
+
 @media screen and (max-width: 950px) {
     .content {
         flex-direction: column;

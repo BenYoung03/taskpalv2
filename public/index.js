@@ -22,7 +22,7 @@ const db = getFirestore(app);
 //TODO: Seperate authentication functionality and homepage functionality to reduce console errors
 
 // Google Sign-In
-// TODO: Either remove google sign in or make it work with the database
+// TODO: Make google sign in work with the database
 const googleProvider = new GoogleAuthProvider();
 const googleSignIn = () => {
     signInWithPopup(auth, googleProvider)
