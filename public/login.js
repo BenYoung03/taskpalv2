@@ -12,7 +12,7 @@ signUpButton.addEventListener('click', function() {
     setTimeout(() => {
         signInForm.style.display = "none";
         signUpForm.style.display = "block";
-    }, 500); // Match the duration of the animation
+    }, 500); 
 });
 
 signInButton.addEventListener('click', function() {
@@ -23,5 +23,5 @@ signInButton.addEventListener('click', function() {
     setTimeout(() => {
         signUpForm.style.display = "none";
         signInForm.style.display = "block";
-    }, 500); // Match the duration of the animation
+    }, 500);
 });
