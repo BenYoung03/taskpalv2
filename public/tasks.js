@@ -19,13 +19,81 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+function createTaskElement(taskData, taskId) {
+    const gridContainer = document.querySelector(".grid-container");
+
+    const newItemContainer = document.createElement("div");
+    newItemContainer.classList.add("grid-item");
+    gridContainer.appendChild(newItemContainer);
+
+    const newItemText = document.createElement("div");
+    newItemText.classList.add("grid-item-text");
+    newItemContainer.appendChild(newItemText);
+
+    const taskHeader = document.createElement("h2");
+    taskHeader.textContent = taskData.taskDesc;
+    newItemText.appendChild(taskHeader);
+
+    const dueDate = document.createElement("p");
+    dueDate.textContent = taskData.dueDate;
+    newItemText.appendChild(dueDate);
+
+    const completeButton = document.createElement("button");
+    completeButton.classList.add("complete-task");
+    completeButton.textContent = "Complete";
+    newItemContainer.appendChild(completeButton);
+
+    const priorityText = document.createElement("p");
+    if (taskData.priority == "2") {
+        priorityText.textContent = "High";
+        priorityText.style.fontWeight = 'bold';
+    } else if (taskData.priority == "1") {
+        priorityText.textContent = "Medium";
+        priorityText.style.fontWeight = '500';
+    } else {
+        priorityText.textContent = "Low";
+    }
+    newItemText.appendChild(priorityText);
+
+    completeButton.addEventListener('click', async function() {
+        await deleteDoc(doc(db, "tasks", taskId));
+        var end = Date.now() + (13 * 85);
+
+        var colors = ['#bb0000', '#ffffff'];
+
+        (function frame() {
+            confetti({
+                particleCount: 2,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 },
+                colors: colors
+            });
+            confetti({
+                particleCount: 2,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 },
+                colors: colors
+            });
+
+            if (Date.now() < end) {
+                requestAnimationFrame(frame);
+            }
+        }());
+        setTimeout(() => {
+            gridContainer.removeChild(newItemContainer);
+        }, 100);
+        console.log("Document deleted with ID: ", taskId);
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             //Add task to Firestore and frontend
             document.querySelector(".add-task-confirm").addEventListener("click", () => {
             //Get values from input fields and current user ID
-            //TODO: Get priority as an integer not string
             const userId = user.uid;
             const taskDesc = document.getElementById("task").value;
             const dueDate = document.getElementById("due-date").value;
@@ -123,70 +191,21 @@ document.addEventListener("DOMContentLoaded", () => {
         //Iterate through each task and add it to the grid container
         querySnapshot.forEach((taskDoc) => {
             const taskData = taskDoc.data();
+            createTaskElement(taskData, taskDoc.id);
+        });
+        
+        const filterConfirm = document.querySelector(".filter-confirm");
+        filterConfirm.addEventListener("click", async () => {
+            const priority = document.getElementById("priority-filter").value;
+            const tasksQuery = query(collection(db, "tasks"), where("priority", "==", priority), where("userId", "==", user.uid));
+            const querySnapshot = await getDocs(tasksQuery);
 
-            const newItemContainer = document.createElement("div");
-            newItemContainer.classList.add("grid-item");
-            gridContainer.appendChild(newItemContainer);
+            const gridContainer = document.querySelector(".grid-container");
+            gridContainer.innerHTML = "";
 
-            const newItemText = document.createElement("div");
-            newItemText.classList.add("grid-item-text");
-            newItemContainer.appendChild(newItemText);
-
-            const taskHeader = document.createElement("h2");
-            taskHeader.textContent = taskData.taskDesc;
-            newItemText.appendChild(taskHeader);
-
-            const dueDate = document.createElement("p");
-            dueDate.textContent = taskData.dueDate;
-            newItemText.appendChild(dueDate);
-    
-            const completeButton = document.createElement("button");
-            completeButton.classList.add("complete-task");
-            completeButton.textContent = "Complete";
-            newItemContainer.appendChild(completeButton);
-
-            const priorityText=document.createElement("p");
-            if(taskData.priority == "2"){
-                priorityText.textContent = "High";
-                    priorityText.style.fontWeight = 'bold';
-            } else if (taskData.priority == "1"){
-                priorityText.textContent = "Medium";
-                    priorityText.style.fontWeight = '500'
-            } else {
-                priorityText.textContent = "Low";
-            }
-            newItemText.appendChild(priorityText)
-
-            completeButton.addEventListener('click', async function() {
-                await deleteDoc(doc(db, "tasks", taskDoc.id));
-                var end = Date.now() + (13 * 85);
-
-                var colors = ['#bb0000', '#ffffff'];
-
-                (function frame() {
-                confetti({
-                    particleCount: 2,
-                    angle: 60,
-                    spread: 55,
-                    origin: { x: 0 },
-                    colors: colors
-                });
-                confetti({
-                    particleCount: 2,
-                    angle: 120,
-                    spread: 55,
-                    origin: { x: 1 },
-                    colors: colors
-                });
-
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
-            }());
-                setTimeout(() => {
-                    gridContainer.removeChild(newItemContainer);
-                }, 100);  
-                console.log("Document deleted with ID: ", taskDoc.id);    
+            querySnapshot.forEach((taskDoc) => {
+                const taskData = taskDoc.data();
+                createTaskElement(taskData, taskDoc.id);
             });
         });
     } else {

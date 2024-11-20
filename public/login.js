@@ -52,6 +52,3 @@ backToSignInButton.addEventListener('click', function() {
     }, 500);
 });
 
-resetPasswordConfirm.addEventListener('click', function() {
-    
-});
