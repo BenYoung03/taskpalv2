@@ -9,6 +9,7 @@ body {
 .content {
     display: flex;
     min-height: 100vh;
+    max-height: 100vh;
 }
 
 .left {
@@ -157,20 +158,20 @@ p {
     border: 1px solid green;
 }
 
-.google-sign-in{
-    margin: 0px 0px 40px 60px;
+.sign-in-options {
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    gap: 10px; /* Adjust the gap as needed */
 }
 
 #googleIcon{
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
 }
 
 #googleButton{
-    width: 50px;
-    height: 50px;
+    background: none;
+    border: none;
     cursor: pointer;
 }
 
