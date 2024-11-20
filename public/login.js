@@ -51,3 +51,7 @@ backToSignInButton.addEventListener('click', function() {
         signInForm.style.display = "block";
     }, 500);
 });
+
+resetPasswordConfirm.addEventListener('click', function() {
+    
+});

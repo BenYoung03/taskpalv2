@@ -133,6 +133,49 @@ if (signIn) {
     console.error("Element with id 'sign-in-confirm' not found.");
 }
 
+const resetPasswordConfirm = document.getElementById("reset-password-confirm");
+    if (resetPasswordConfirm) {
+        resetPasswordConfirm.addEventListener('click', function() {
+            console.log("Reset password button clicked"); // Debug log
+            const email = document.getElementById('reset-email').value;
+            const resetPasswordForm = document.getElementById('reset-password-form');
+            const signInForm = document.getElementById('sign-in');
+
+            if (email) {
+                sendPasswordResetEmail(auth, email)
+                    .then(() => {
+                        const resetPasswordMessage = document.querySelector('.error-reset-password');
+                        resetPasswordMessage.textContent = 'Password reset email sent!';
+                        resetPasswordMessage.style.color = 'green';
+                        resetPasswordConfirm.style.display = "none";
+
+                        setTimeout(() => {
+                            resetPasswordForm.classList.add('fade-out');
+                            resetPasswordForm.classList.remove('fade-in');
+                            signInForm.classList.add('fade-in');
+                            signInForm.classList.remove('fade-out');
+                            setTimeout(() => {
+                                resetPasswordForm.style.display = "none";
+                                signInForm.style.display = "block";
+                            }, 500);
+                        }, 2000);
+                    })
+                    .catch((error) => {
+                        const resetPasswordMessage = document.querySelector('.error-reset-password');
+                        resetPasswordMessage.textContent = error.message
+                        resetPasswordMessage.style.color = 'red';
+                        console.error('Error sending password reset email:', error);
+                    });
+            } else {
+                const resetPasswordMessage = document.querySelector('.error-reset-password');
+                resetPasswordMessage.textContent = 'Please enter your email address.';
+                resetPasswordMessage.style.color = 'red';
+            }
+        });
+    } else {
+        console.error("Element with id 'reset-password-confirm' not found.");
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     onAuthStateChanged(auth, async (user) => {
         if (user) {
@@ -191,28 +234,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 }); 
 
-const resetPasswordConfirm = document.getElementById("reset-password-confirm")
-resetPasswordConfirm.addEventListener('click', function() {
-    const email = document.getElementById('reset-email').value;
 
-    if (email) {
-        sendPasswordResetEmail(auth, email)
-            .then(() => {
-                const resetPasswordMessage = document.querySelector('.error-reset-password');
-                resetPasswordMessage.textContent = 'Password reset email sent!';
-                resetPasswordMessage.style.color = 'green';
-            })
-            .catch((error) => {
-                const resetPasswordMessage = document.querySelector('.error-reset-password');
-                resetPasswordMessage.textContent = 'Error sending password reset email.';
-                resetPasswordMessage.style.color = 'red';
-                console.error('Error sending password reset email:', error);
-            });
-    } else {
-        const resetPasswordMessage = document.querySelector('.error-reset-password');
-        resetPasswordMessage.textContent = 'Please enter your email address.';
-        resetPasswordMessage.style.color = 'red';
-    }
-});
 
 
