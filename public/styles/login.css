@@ -209,7 +209,7 @@ p {
 
 .error-sign-up,
 .error-sign-in {
-    font-size: 32px;
+    font-size: 18px;
     color: darkred;
     font-weight: bold;
     text-shadow: 1px 1px 1px rgb(200, 200, 200);
@@ -306,6 +306,23 @@ p {
     .sign-up-confirm{
         margin: 10px 0px 20px 60px;
         width: 80%;
+    }
+
+    .bottom-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #backToSignInButton,
+    #signUpButton,
+    #signInButton{
+        margin: 0;
+    }
+
+    #sign-up-confirm{
+        margin: 0px 0px 10px 0px
     }
     
 }

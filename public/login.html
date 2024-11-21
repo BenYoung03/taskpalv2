@@ -17,9 +17,6 @@
         </div>
         <div class="right">
             <div id="sign-up" style="display:none">
-                <h2 class="right-header">
-                    Please Sign Up Below!
-                </h2>
                 <form action="" class="sign-up">
                     <div class="form-container">
                         <h1>TASKPAL SIGN UP</h1>
@@ -47,15 +44,14 @@
                     </div>
                     </div>
                 </form>
-                <p class="error-sign-up"></p>
-                <button type="button" id="sign-up-confirm">Sign Up</button>
-                <p>Already have an account?</p>
-                <button id="signInButton">Sign In</button>
+                <div class="bottom-container">
+                    <p class="error-sign-up"></p>
+                    <button type="button" id="sign-up-confirm">Sign Up</button>
+                    <p>Already have an account?</p>
+                    <button id="signInButton">Sign In</button>
+                </div>
             </div>
             <div id="sign-in">
-                <h2 class="right-header">
-                    Please Sign In Below!
-                </h2>
                 <form action="" class="sign-up">
                     <div class="form-container">
                         <h1>TASKPAL SIGN IN</h1>
@@ -75,14 +71,16 @@
                     </div>
                     </div>
                 </form>
-                <p class="error-sign-in"></p>
-                <p id="reset-password">Forget password?</p>
-                <div class="sign-in-options">
+                <div class="bottom-container">
+                    <p class="error-sign-in"></p>
+                    <p id="reset-password">Forget password?</p>
+                    <div class="sign-in-options">
                     <button type="button" id="sign-in-confirm">Sign In</button>
                     <button id="googleButton"><img src="img/googleIcon.png" alt="Google Sign In" id="googleIcon"></button>
+                    </div>
+                    <p>Don't have an account?</p>
+                    <button id="signUpButton">Sign Up</button>
                 </div>
-                <p>Don't have an account?</p>
-                <button id="signUpButton">Sign Up</button>
             </div>
             <div id="reset-password-form" style="display:none">
                 <h2 class="right-header">
@@ -105,7 +103,7 @@
                 <p>Remembered your password?</p>
                 <button id="backToSignInButton">Sign In</button>
             </div>
-            </div>
+        </div>
     </div>  
 </body>
 </html>

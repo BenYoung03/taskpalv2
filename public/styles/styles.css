@@ -202,3 +202,13 @@ p {
     width: 25%;
 }
 
+@media screen and (max-width: 950px) {
+    .company-name,
+    #login,
+    #logout{
+        font-size: 26px;
+    }
+    #welcome{
+        display: none
+    }
+}
