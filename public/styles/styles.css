@@ -207,6 +207,11 @@ p {
     #login,
     #logout{
         font-size: 26px;
+        margin: 0;
+    }
+    #login,
+    #logout{
+        margin: 0px -50px 0px 0px
     }
     #welcome{
         display: none
