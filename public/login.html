@@ -38,8 +38,11 @@
                             <input type="email" id="emailR" name="email" required>
                         </div>
                         <div>
-                            <label for="passwordR">PASSWORD*</label>
-                            <input type="password" id="passwordR" name="pass" required>
+                            <label for="password">PASSWORD*</label>
+                            <div class="password-wrap">
+                                <input type="password" id="passwordR" name="passwordR" pattern="(?=.*[A-Z]).{6,}" title="Must contain at least one uppercase, and at least 6 or more characters" required>
+                                <button type="button" class="show-password-reg" onclick="toggleShowPasswordReg()">Show</button>
+                            </div>
                         </div>
                     </div>
                     </div>
@@ -64,7 +67,10 @@
                         </div>
                         <div>
                             <label for="password">PASSWORD*</label>
-                            <input type="password" id="password" name="pass" required>
+                            <div class="password-wrap">
+                                <input type="password" id="password" name="pass" pattern="(?=.*[A-Z]).{6,}" title="Must contain at least one uppercase, and at least 6 or more characters" required>
+                                <button type="button" class="show-password-sign" onclick="toggleShowPasswordSignIn()">Show</button>
+                            </div>
                         </div>
                     </div>
                     </div>

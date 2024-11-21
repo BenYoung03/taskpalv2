@@ -89,6 +89,19 @@ p {
     font-size: 15px;
 }
 
+.show-password-sign,
+.show-password-reg{
+    position: absolute;
+    margin: 10px 0px 0px -50px;
+    background-color: darkred;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
 #sign-up-confirm,
 #sign-in-confirm,
 #reset-password-confirm {

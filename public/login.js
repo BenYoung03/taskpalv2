@@ -5,7 +5,6 @@ const signInForm = document.getElementById('sign-in');
 const signUpForm = document.getElementById('sign-up');
 const resetPasswordForm = document.getElementById('reset-password-form');
 const resetPasswordButton = document.getElementById('reset-password');
-const signUpButtonConfirm = document.getElementById('sign-up-confirm');
 const backToSignInButton = document.getElementById('backToSignInButton');
 
 signUpButton.addEventListener('click', function() {
@@ -52,14 +51,26 @@ backToSignInButton.addEventListener('click', function() {
     }, 500);
 });
 
-signUpButtonConfirm.addEventListener('click', function() {
-    signUpForm.classList.add('fade-out');
-    signUpForm.classList.remove('fade-in');
-    signInForm.classList.add('fade-in');
-    signInForm.classList.remove('fade-out');
-    setTimeout(() => {
-        signUpForm.style.display = "none";
-        signInForm.style.display = "block";
-    }, 500);
-});
+function toggleShowPasswordReg() {
+    var x = document.getElementById("passwordR");
+    var button = document.querySelector('.show-password-reg');
+    if (x.type === "password") {
+        x.type = "text";
+        button.innerHTML = "Hide";
+    } else {
+        x.type = "password";
+        button.innerHTML = "Show";
+    }
+}
 
+function toggleShowPasswordSignIn() {
+    var x = document.getElementById("password");
+    var button = document.querySelector('.show-password-sign');
+    if (x.type === "password") {
+        x.type = "text";
+        button.innerHTML = "Hide";
+    } else {
+        x.type = "password";
+        button.innerHTML = "Show";
+    }
+}
