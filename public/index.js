@@ -76,7 +76,6 @@ if (signUp) {
             setDoc(docRef, userData)
                 .then(() => {
                     //redirect to login page
-                    document.querySelector('.error').innerHTML = "";
                     signUpForm.classList.add('fade-out');
                     signUpForm.classList.remove('fade-in');
                     signInForm.classList.add('fade-in');
