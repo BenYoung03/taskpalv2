@@ -174,7 +174,7 @@ p {
 
 .add-task-confirm:hover, 
 .complete-task:hover {
-    background-color: rgb(255, 0, 0);
+    background-color: #b20000;
 }
 
 .filter-button-container{
@@ -194,12 +194,89 @@ p {
     font-size: 12px;
 }
 
+.filter-confirm:hover,
+.filter-clear:hover{
+    background-color: #b20000;
+}
+
 .filter-confirm{
     width: 70%;
 }
 
 .filter-clear{
     width: 25%;
+}
+
+#dark-mode-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #800000; /* Matches your red theme */
+    color: white;
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 1000; /* Ensures it stays on top */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#dark-mode-toggle:hover {
+    background-color: #b20000; 
+    transform: scale(1.1);
+}
+
+#toggle-icon {
+    transition: opacity 0.2s ease; 
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.header.dark-mode {
+    background-color: #282828;
+}
+
+body.dark-mode .grid-item {
+    background-color: #252525;
+    border: 1px solid #444;
+    color: white;
+}
+
+body.dark-mode .grid-item h2,
+body.dark-mode .grid-item p {
+    color: white; 
+}
+
+body.dark-mode .form-container input,
+body.dark-mode .form-container select {
+    background-color: #252525; 
+    border: 1px solid #464646;
+    box-shadow: inset 1px 1px 3px black;
+    color: white;
+}
+
+body.dark-mode .form-container input:focus{
+    outline: none;
+    border: 1px solid white;
+    background-color: #363636;
+}
+
+body.dark-mode .form-container input:hover{
+    background-color: #363636;
+}
+
+body.dark-mode #priority,
+body.dark-mode #priority-filter {
+    border: 1px solid #464646;
+    box-shadow: inset 1px 1px 3px black;
 }
 
 @media screen and (max-width: 950px) {
