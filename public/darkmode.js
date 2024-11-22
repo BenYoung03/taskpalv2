@@ -8,17 +8,20 @@ function toggleDarkMode() {
 
     setTimeout(() => {
         if (body.classList.contains('dark-mode')) {
-            icon.textContent = '🌞'; // Sun icon for light mode
-            localStorage.setItem('dark-mode', 'enabled'); // Save preference
+            icon.textContent = '🌞'; 
+            //Stores change to local browser
+            localStorage.setItem('dark-mode', 'enabled'); 
         } else {
-            icon.textContent = '🌙'; // Moon icon for dark mode
-            localStorage.setItem('dark-mode', 'disabled'); // Save preference
+            icon.textContent = '🌙'; 
+            //Stores change to local browser
+            localStorage.setItem('dark-mode', 'disabled'); 
         }
         icon.style.opacity = 1;
     }, 200);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    //When DOM fully loaded, get the preference from local brower storage
     const darkModePreference = localStorage.getItem('dark-mode');
     const body = document.body;
     const icon = document.getElementById('toggle-icon');
