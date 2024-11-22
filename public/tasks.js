@@ -140,6 +140,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             newItemText.appendChild(priorityText)
                 
+            document.getElementById("task").value = "";
+            document.getElementById("due-date").value = "";
+            document.getElementById("priority").value = "";
+            
             addDoc(collection(db, "tasks"), taskData)
                 .then((docRef) => {
                     console.log("Document written with ID: ", docRef.id);
@@ -164,7 +168,6 @@ document.addEventListener("DOMContentLoaded", () => {
                             origin: { x: 1 },
                             colors: colors
                         });
-
                         if (Date.now() < end) {
                             requestAnimationFrame(frame);
                         }
