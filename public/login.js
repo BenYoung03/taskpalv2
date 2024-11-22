@@ -6,6 +6,8 @@ const signUpForm = document.getElementById('sign-up');
 const resetPasswordForm = document.getElementById('reset-password-form');
 const resetPasswordButton = document.getElementById('reset-password');
 const backToSignInButton = document.getElementById('backToSignInButton');
+const signUp = document.getElementById('sign-up-confirm');
+const signIn = document.getElementById('sign-in-confirm');
 
 signUpButton.addEventListener('click', function() {
     signInForm.classList.add('fade-out');
@@ -74,3 +76,17 @@ function toggleShowPasswordSignIn() {
         button.innerHTML = "Show";
     }
 }
+
+signUpForm.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        signUp.click();
+    }
+});
+
+signInForm.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        signIn.click();
+    }
+});
