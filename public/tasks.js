@@ -99,6 +99,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const dueDate = document.getElementById("due-date").value;
             const priority = document.getElementById("priority").value;
 
+            if (!taskDesc.trim()) {
+                alert("Please input a task description.");
+                return;
+            }
+
             const taskData = {
                 taskDesc: taskDesc,    
                 dueDate: dueDate, 
