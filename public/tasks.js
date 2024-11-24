@@ -88,174 +88,184 @@ function createTaskElement(taskData, taskId) {
     });
 }
 
+const formContainer = document.querySelector(".form-container");
+const addTask = document.querySelector(".add-task");
+
 document.addEventListener("DOMContentLoaded", () => {
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             //Add task to Firestore and frontend
             document.querySelector(".add-task-confirm").addEventListener("click", () => {
-            //Get values from input fields and current user ID
-            const userId = user.uid;
-            const taskDesc = document.getElementById("task").value;
-            const dueDate = document.getElementById("due-date").value;
-            const priority = document.getElementById("priority").value;
+                //Get values from input fields and current user ID
+                const userId = user.uid;
+                const taskDesc = document.getElementById("task").value;
+                const dueDate = document.getElementById("due-date").value;
+                const priority = document.getElementById("priority").value;
 
-            if (!taskDesc.trim()) {
-                alert("Please input a task description.");
-                return;
-            }
+                if (!taskDesc.trim()) {
+                    alert("Please input a task description.");
+                    return;
+                }
 
-            const taskData = {
-                taskDesc: taskDesc,    
-                dueDate: dueDate, 
-                priority: priority,    
-                userId: userId,      
-            };
+                const taskData = {
+                    taskDesc: taskDesc,    
+                    dueDate: dueDate, 
+                    priority: priority,    
+                    userId: userId,      
+                };
 
-            const gridContainer = document.querySelector(".grid-container");
-            const newItemContainer = document.createElement("div");
-            newItemContainer.classList.add("grid-item");
-            gridContainer.appendChild(newItemContainer);
+                const gridContainer = document.querySelector(".grid-container");
+                const newItemContainer = document.createElement("div");
+                newItemContainer.classList.add("grid-item");
+                gridContainer.appendChild(newItemContainer);
 
-            const newItemText = document.createElement("div");
-            newItemText.classList.add("grid-item-text");
-            newItemContainer.appendChild(newItemText);
+                const newItemText = document.createElement("div");
+                newItemText.classList.add("grid-item-text");
+                newItemContainer.appendChild(newItemText);
 
-            const taskHeader = document.createElement("h2");
-            taskHeader.textContent = taskDesc; 
-            newItemText.appendChild(taskHeader);
+                const taskHeader = document.createElement("h2");
+                taskHeader.textContent = taskDesc; 
+                newItemText.appendChild(taskHeader);
 
-            const dueDateElement = document.createElement("p");
-            dueDateElement.textContent = dueDate; 
-            newItemText.appendChild(dueDateElement);
+                const dueDateElement = document.createElement("p");
+                dueDateElement.textContent = dueDate; 
+                newItemText.appendChild(dueDateElement);
 
-            const completeButton = document.createElement("button");
-            completeButton.classList.add("complete-task");
-            completeButton.textContent = "Complete";
-            newItemContainer.appendChild(completeButton);
+                const completeButton = document.createElement("button");
+                completeButton.classList.add("complete-task");
+                completeButton.textContent = "Complete";
+                newItemContainer.appendChild(completeButton);
 
-            const priorityText=document.createElement("p");
-            if(priority == "2"){
-                priorityText.textContent = "High";
-                    priorityText.style.fontWeight = 'bold';
-            } else if (priority == "1"){
-                priorityText.textContent = "Medium";
-                    priorityText.style.fontWeight = '500'
-            } else {
-                priorityText.textContent = "Low";
-            }
-            newItemText.appendChild(priorityText)
+                const priorityText=document.createElement("p");
+                if(priority == "2"){
+                    priorityText.textContent = "High";
+                        priorityText.style.fontWeight = 'bold';
+                } else if (priority == "1"){
+                    priorityText.textContent = "Medium";
+                        priorityText.style.fontWeight = '500'
+                } else {
+                    priorityText.textContent = "Low";
+                }
+                newItemText.appendChild(priorityText)
+                    
+                document.getElementById("task").value = "";
+                document.getElementById("due-date").value = "";
+                document.getElementById("priority").value = "";
                 
-            document.getElementById("task").value = "";
-            document.getElementById("due-date").value = "";
-            document.getElementById("priority").value = "";
-            
-            addDoc(collection(db, "tasks"), taskData)
-                .then((docRef) => {
-                    console.log("Document written with ID: ", docRef.id);
-                    completeButton.addEventListener('click', async function() {
-                        await deleteDoc(doc(db, "tasks", docRef.id));
-                        var end = Date.now() + (13 * 85);
+                addDoc(collection(db, "tasks"), taskData)
+                    .then((docRef) => {
+                        console.log("Document written with ID: ", docRef.id);
+                        completeButton.addEventListener('click', async function() {
+                            await deleteDoc(doc(db, "tasks", docRef.id));
+                            var end = Date.now() + (13 * 85);
 
-                        var colors = ['#bb0000', '#ffffff'];
+                            var colors = ['#bb0000', '#ffffff'];
 
-                        (function frame() {
-                        confetti({
-                            particleCount: 2,
-                            angle: 60,
-                            spread: 55,
-                            origin: { x: 0 },
-                            colors: colors
+                            (function frame() {
+                            confetti({
+                                particleCount: 2,
+                                angle: 60,
+                                spread: 55,
+                                origin: { x: 0 },
+                                colors: colors
+                            });
+                            confetti({
+                                particleCount: 2,
+                                angle: 120,
+                                spread: 55,
+                                origin: { x: 1 },
+                                colors: colors
+                            });
+                            if (Date.now() < end) {
+                                requestAnimationFrame(frame);
+                            }
+                        }());
+                            setTimeout(() => {
+                                gridContainer.removeChild(newItemContainer);
+                            }, 100);                        
+                            console.log("Document deleted with ID: ", docRef.id);    
                         });
-                        confetti({
-                            particleCount: 2,
-                            angle: 120,
-                            spread: 55,
-                            origin: { x: 1 },
-                            colors: colors
-                        });
-                        if (Date.now() < end) {
-                            requestAnimationFrame(frame);
-                        }
-                    }());
-                        setTimeout(() => {
-                            gridContainer.removeChild(newItemContainer);
-                        }, 100);                        
-                        console.log("Document deleted with ID: ", docRef.id);    
+                    })
+                    .catch((error) => {
+                        console.error("Error writing document:", error);
                     });
-                })
-                .catch((error) => {
-                    console.error("Error writing document:", error);
-                });
-        });
+                    formContainer.style.display = "none";
+                    addTask.style.display = "block";
+            });
 
-        //Gets all tasks from Firestore where the userId matches the current user's ID
-        const tasksQuery = query(collection(db, "tasks"), where("userId", "==", user.uid));
-        const querySnapshot = await getDocs(tasksQuery);
-
-        //Clear the grid container before adding new tasks
-        const gridContainer = document.querySelector(".grid-container");
-        gridContainer.innerHTML = ""; 
-
-        //Iterate through each task and add it to the grid container
-        querySnapshot.forEach((taskDoc) => {
-            const taskData = taskDoc.data();
-            createTaskElement(taskData, taskDoc.id);
-        });
-        
-        const filterConfirm = document.querySelector(".filter-confirm");
-        filterConfirm.addEventListener("click", async () => {
-            const priority = document.getElementById("priority-filter").value;
-            const tasksQuery = query(collection(db, "tasks"), where("priority", "==", priority), where("userId", "==", user.uid));
+            //Gets all tasks from Firestore where the userId matches the current user's ID
+            const tasksQuery = query(collection(db, "tasks"), where("userId", "==", user.uid));
             const querySnapshot = await getDocs(tasksQuery);
 
+            //Clear the grid container before adding new tasks
             const gridContainer = document.querySelector(".grid-container");
-            gridContainer.innerHTML = "";
+            gridContainer.innerHTML = ""; 
 
+            //Iterate through each task and add it to the grid container
             querySnapshot.forEach((taskDoc) => {
                 const taskData = taskDoc.data();
                 createTaskElement(taskData, taskDoc.id);
             });
-        });
+            
+            const filterConfirm = document.querySelector(".filter-confirm");
+            filterConfirm.addEventListener("click", async () => {
+                const priority = document.getElementById("priority-filter").value;
+                const tasksQuery = query(collection(db, "tasks"), where("priority", "==", priority), where("userId", "==", user.uid));
+                const querySnapshot = await getDocs(tasksQuery);
 
-        const filterClear = document.querySelector(".filter-clear");
-        filterClear.addEventListener("click", async () => {
-            const tasksQuery = query(collection(db, "tasks"), where("userId", "==", user.uid));
-            const querySnapshot = await getDocs(tasksQuery);
+                const gridContainer = document.querySelector(".grid-container");
+                gridContainer.innerHTML = "";
 
-            const gridContainer = document.querySelector(".grid-container");
-            gridContainer.innerHTML = "";
-
-            querySnapshot.forEach((taskDoc) => {
-                const taskData = taskDoc.data();
-                createTaskElement(taskData, taskDoc.id);
-            });
-        });
-
-        const searchConfirm = document.querySelector(".search-confirm");
-        searchConfirm.addEventListener("click", async () => {
-            const search = document.getElementById("search-task").value;
-            const tasksQuery = query(collection(db, "tasks"), where("userId", "==", user.uid));
-            const querySnapshot = await getDocs(tasksQuery);
-
-            const gridContainer = document.querySelector(".grid-container");
-            gridContainer.innerHTML = "";
-
-            querySnapshot.forEach((taskDoc) => {
-                const lowerCaseTask = taskDoc.data().taskDesc.toLowerCase();
-                const lowerCaseSearch = search.toLowerCase();
-                if(lowerCaseTask.includes(lowerCaseSearch)){
+                querySnapshot.forEach((taskDoc) => {
                     const taskData = taskDoc.data();
                     createTaskElement(taskData, taskDoc.id);
-                }
+                });
             });
-        });
-    } else {
-        //If there is no user signed in, then hide the task confirm button and show the login button
-        console.log("No user is signed in.");
-        document.querySelector(".add-task-confirm").style.display = "none";
-        document.getElementById("login").style.display = "block";
-        document.getElementById("logout").style.display = "none";
-        document.getElementById("welcome").textContent = ``;
-    }
+
+            const filterClear = document.querySelector(".filter-clear");
+            filterClear.addEventListener("click", async () => {
+                const tasksQuery = query(collection(db, "tasks"), where("userId", "==", user.uid));
+                const querySnapshot = await getDocs(tasksQuery);
+
+                const gridContainer = document.querySelector(".grid-container");
+                gridContainer.innerHTML = "";
+
+                querySnapshot.forEach((taskDoc) => {
+                    const taskData = taskDoc.data();
+                    createTaskElement(taskData, taskDoc.id);
+                });
+            });
+
+            const searchConfirm = document.querySelector(".search-confirm");
+            searchConfirm.addEventListener("click", async () => {
+                const search = document.getElementById("search-task").value;
+                const tasksQuery = query(collection(db, "tasks"), where("userId", "==", user.uid));
+                const querySnapshot = await getDocs(tasksQuery);
+
+                const gridContainer = document.querySelector(".grid-container");
+                gridContainer.innerHTML = "";
+
+                querySnapshot.forEach((taskDoc) => {
+                    const lowerCaseTask = taskDoc.data().taskDesc.toLowerCase();
+                    const lowerCaseSearch = search.toLowerCase();
+                    if(lowerCaseTask.includes(lowerCaseSearch)){
+                        const taskData = taskDoc.data();
+                        createTaskElement(taskData, taskDoc.id);
+                    }
+                });
+            });
+        } else {
+            //If there is no user signed in, then hide the task confirm button and show the login button
+            console.log("No user is signed in.");
+            document.querySelector(".add-task-confirm").style.display = "none";
+            document.getElementById("login").style.display = "block";
+            document.getElementById("logout").style.display = "none";
+            document.getElementById("welcome").textContent = ``;
+        }
+        const cancelTask = document.querySelector(".cancel-task");
+            cancelTask.addEventListener("click", () => {
+                formContainer.style.display = "none";
+                addTask.style.display = "block";
+            });
     });
 });

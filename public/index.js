@@ -121,6 +121,7 @@ if (signIn) {
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => { 
             const user = userCredential.user;
+            console.log("User signed in:", user);
             //Redirect to main page
             window.location.href = "index.html";
         })
@@ -143,10 +144,12 @@ if (signIn) {
 }
 
 const formContainer = document.querySelector(".form-container");
+const addTask = document.querySelector(".add-task");
 document.addEventListener("DOMContentLoaded", () => {
     onAuthStateChanged(auth, async (user) => {
         if (user) {
-            formContainer.style.display = "flex";
+            //formContainer.style.display = "flex";
+            addTask.style.display = "block";
             //Remove logged out text warning if a user is detected
             document.getElementById("logged-out-text").style.display = "none";
             if (user.providerData[0].providerId === "password") {
@@ -175,6 +178,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("welcome").textContent = `Welcome, ${firstName}!`;
                 console.log("Set welcome message to:", `Welcome, ${firstName}!`);
             }
+
+            addTask.addEventListener("click", () => {
+                formContainer.style.display = "flex";
+                addTask.style.display = "none";
+            });
     } else {
         //If there is no user signed in, then hide the task confirm button and show the login button
         console.log("No user is signed in.");
@@ -183,6 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("login").style.display = "block";
         document.getElementById("logout").style.display = "none";
         document.getElementById("welcome").textContent = ``;
+        addTask.style.display = "none";
     }
 });
 
