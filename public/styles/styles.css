@@ -65,6 +65,14 @@ a,
     box-shadow: inset 1px 1px 3px #ccc;
 }
 
+#search-task{
+    border: 1px solid rgb(204, 204, 204);
+    font-size: 16px;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: inset 1px 1px 3px #ccc;
+}
+
 .form-container input:focus{
     outline: none;
     border: 1px solid black;
@@ -206,6 +214,27 @@ p {
     width: 25%;
 }
 
+.search-container{
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0px 0px 0px;
+}
+
+#search-task{
+    width: 66%;
+}
+
+.search-confirm{
+    background-color: darkred;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 12px;
+    width: 25%;
+}
+
 #dark-mode-toggle {
     position: fixed;
     bottom: 20px;
@@ -247,6 +276,7 @@ body.dark-mode .grid-item {
     background-color: #252525;
     border: 1px solid #444;
     color: white;
+    box-shadow: 0 4px 8px rgba(126, 126, 126, 0.2); 
 }
 
 body.dark-mode .grid-item h2,
@@ -255,20 +285,23 @@ body.dark-mode .grid-item p {
 }
 
 body.dark-mode .form-container input,
-body.dark-mode .form-container select {
+body.dark-mode .form-container select,
+body.dark-mode #search-task {
     background-color: #252525; 
     border: 1px solid #464646;
     box-shadow: inset 1px 1px 3px black;
     color: white;
 }
 
-body.dark-mode .form-container input:focus{
+body.dark-mode .form-container input:focus,
+body.dark-mode #search-task:focus{
     outline: none;
     border: 1px solid white;
     background-color: #363636;
 }
 
-body.dark-mode .form-container input:hover{
+body.dark-mode .form-container input:hover,
+body.dark-mode #search-task:hover{
     background-color: #363636;
 }
 
