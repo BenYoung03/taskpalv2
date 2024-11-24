@@ -72,6 +72,9 @@ a,
     box-shadow: inset 1px 1px 3px #ccc;
 }
 
+.task-functions{
+    width: 310px;
+}
 #search-task{
     border: 1px solid rgb(204, 204, 204);
     font-size: 16px;
@@ -93,6 +96,7 @@ a,
 .filter-container{
     display: flex;
     justify-content: space-between;
+    margin: 5px 0px 0px 0px;
 }
 
 #priority-filter{
@@ -183,6 +187,7 @@ p {
 
 .add-task {
     font-size: large;
+    margin: 0px 0px 20px 0px
 }
 
 .add-task-confirm{
@@ -207,7 +212,7 @@ p {
     cursor: pointer;
     font-size: 16px;
     width: 100%;
-    margin: 10px 0px 0px 0px;
+    margin: 10px 0px 30px 0px;
 }
 
 @keyframes slideIn {
@@ -334,7 +339,8 @@ body.dark-mode .grid-item p {
 
 body.dark-mode .form-container input,
 body.dark-mode .form-container select,
-body.dark-mode #search-task {
+body.dark-mode #search-task,
+body.dark-mode #priority-filter {
     background-color: #252525; 
     border: 1px solid #464646;
     box-shadow: inset 1px 1px 3px black;
