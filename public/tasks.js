@@ -262,10 +262,5 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("logout").style.display = "none";
             document.getElementById("welcome").textContent = ``;
         }
-        const cancelTask = document.querySelector(".cancel-task");
-            cancelTask.addEventListener("click", () => {
-                formContainer.style.display = "none";
-                addTask.style.display = "block";
-            });
     });
 });

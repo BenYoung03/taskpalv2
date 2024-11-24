@@ -148,7 +148,6 @@ const addTask = document.querySelector(".add-task");
 document.addEventListener("DOMContentLoaded", () => {
     onAuthStateChanged(auth, async (user) => {
         if (user) {
-            //formContainer.style.display = "flex";
             addTask.style.display = "block";
             //Remove logged out text warning if a user is detected
             document.getElementById("logged-out-text").style.display = "none";
@@ -182,6 +181,14 @@ document.addEventListener("DOMContentLoaded", () => {
             addTask.addEventListener("click", () => {
                 formContainer.style.display = "flex";
                 addTask.style.display = "none";
+                formContainer.classList.add("show");
+            });
+
+            const cancelTask = document.querySelector(".cancel-task");
+            cancelTask.addEventListener("click", () => {
+                formContainer.classList.remove("show");
+                addTask.style.display = "block";
+                formContainer.style.display = "none";
             });
     } else {
         //If there is no user signed in, then hide the task confirm button and show the login button

@@ -47,8 +47,15 @@ a,
 }
 
 .form-container {
-    display: flex;
+    display: none;
     flex-direction: column;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+.form-container.show {
+    display: flex;
+    animation-name: slideIn;
 }
 
 .form-container > label {
@@ -163,7 +170,8 @@ p {
 }
 
 .complete-task,
-.add-task-confirm {
+.add-task-confirm,
+.add-task {
     background-color: darkred;
     color: white;
     border: none;
@@ -173,6 +181,10 @@ p {
     font-size: 16px;
 }
 
+.add-task {
+    font-size: large;
+}
+
 .add-task-confirm{
     margin: 20px 0px 0px 0px;
     width: 100%;
@@ -180,8 +192,44 @@ p {
 }
 
 .add-task-confirm:hover, 
-.complete-task:hover {
+.complete-task:hover,
+.add-task:hover,
+.cancel-task:hover {
     background-color: #b20000;
+}
+
+.cancel-task {
+    background-color: darkred;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    margin: 10px 0px 0px 0px;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
 }
 
 .filter-button-container{
