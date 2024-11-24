@@ -230,6 +230,25 @@ document.addEventListener("DOMContentLoaded", () => {
                 createTaskElement(taskData, taskDoc.id);
             });
         });
+
+        const searchConfirm = document.querySelector(".search-confirm");
+        searchConfirm.addEventListener("click", async () => {
+            const search = document.getElementById("search-task").value;
+            const tasksQuery = query(collection(db, "tasks"), where("userId", "==", user.uid));
+            const querySnapshot = await getDocs(tasksQuery);
+
+            const gridContainer = document.querySelector(".grid-container");
+            gridContainer.innerHTML = "";
+
+            querySnapshot.forEach((taskDoc) => {
+                const lowerCaseTask = taskDoc.data().taskDesc.toLowerCase();
+                const lowerCaseSearch = search.toLowerCase();
+                if(lowerCaseTask.includes(lowerCaseSearch)){
+                    const taskData = taskDoc.data();
+                    createTaskElement(taskData, taskDoc.id);
+                }
+            });
+        });
     } else {
         //If there is no user signed in, then hide the task confirm button and show the login button
         console.log("No user is signed in.");
