@@ -144,11 +144,13 @@ if (signIn) {
 }
 
 const formContainer = document.querySelector(".form-container");
+const taskFunctions = document.querySelector(".task-functions");
 const addTask = document.querySelector(".add-task");
 document.addEventListener("DOMContentLoaded", () => {
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             addTask.style.display = "block";
+            taskFunctions.style.display = "block";
             //Remove logged out text warning if a user is detected
             document.getElementById("logged-out-text").style.display = "none";
             if (user.providerData[0].providerId === "password") {
@@ -199,6 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("logout").style.display = "none";
         document.getElementById("welcome").textContent = ``;
         addTask.style.display = "none";
+        taskFunctions.style.display = "none";
     }
 });
 

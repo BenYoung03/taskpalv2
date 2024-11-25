@@ -245,9 +245,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 const gridContainer = document.querySelector(".grid-container");
                 gridContainer.innerHTML = "";
 
+                const lowerCaseSearch = search.toLowerCase();
                 querySnapshot.forEach((taskDoc) => {
                     const lowerCaseTask = taskDoc.data().taskDesc.toLowerCase();
-                    const lowerCaseSearch = search.toLowerCase();
                     if(lowerCaseTask.includes(lowerCaseSearch)){
                         const taskData = taskDoc.data();
                         createTaskElement(taskData, taskDoc.id);
