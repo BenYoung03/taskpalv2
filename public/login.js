@@ -6,6 +6,7 @@ const signUpForm = document.getElementById('sign-up');
 const resetPasswordForm = document.getElementById('reset-password-form');
 const resetPasswordButton = document.getElementById('reset-password');
 const backToSignInButton = document.getElementById('backToSignInButton');
+const resetPasswordConfirm = document.getElementById('reset-password-confirm');
 const signUp = document.getElementById('sign-up-confirm');
 const signIn = document.getElementById('sign-in-confirm');
 

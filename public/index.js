@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail  } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import {getFirestore,  getDoc,  doc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js"
 
 // Your web app's Firebase configuration
@@ -95,7 +95,7 @@ if (signUp) {
         .catch((error) => {
             //various error handling
             if(error.code === "auth/email-already-in-use") {
-                document.querySelector('.error-sign-up').innerHTML = "Email already in use.";
+                document.querySelector('.error-sign-up').innerHTML = "This email is already associated with an account.";
             } else if (error.code === "auth/password-does-not-meet-requirements") {
                 document.querySelector('.error-sign-up').innerHTML = "Password must contain at least 6 characters, Password must contain an upper case character.";
             } else if (error.code === "auth/invalid-email") {
@@ -141,6 +141,47 @@ if (signIn) {
     });
 } else {
     console.error("Element with id 'sign-in-confirm' not found.");
+}
+
+const resetPasswordConfirm = document.getElementById("reset-password-confirm");
+    if (resetPasswordConfirm) {
+        resetPasswordConfirm.addEventListener('click', function() {
+            console.log("Reset password button clicked"); // Debug log
+            const email = document.getElementById('reset-email').value;
+            const resetPasswordForm = document.getElementById('reset-password-form');
+            const signInForm = document.getElementById('sign-in');
+            if (email) {
+                sendPasswordResetEmail(auth, email)
+                    .then(() => {
+                        const resetPasswordMessage = document.querySelector('.error-reset-password');
+                        resetPasswordMessage.textContent = 'Password reset email sent!';
+                        resetPasswordMessage.style.color = 'green';
+                        resetPasswordConfirm.style.display = "none";
+                        setTimeout(() => {
+                            resetPasswordForm.classList.add('fade-out');
+                            resetPasswordForm.classList.remove('fade-in');
+                            signInForm.classList.add('fade-in');
+                            signInForm.classList.remove('fade-out');
+                            setTimeout(() => {
+                                resetPasswordForm.style.display = "none";
+                                signInForm.style.display = "block";
+                            }, 500);
+                        }, 2000);
+                    })
+                    .catch((error) => {
+                        const resetPasswordMessage = document.querySelector('.error-reset-password');
+                        resetPasswordMessage.textContent = error.message
+                        resetPasswordMessage.style.color = 'red';
+                        console.error('Error sending password reset email:', error);
+                    });
+            } else {
+                const resetPasswordMessage = document.querySelector('.error-reset-password');
+                resetPasswordMessage.textContent = 'Please enter your email address.';
+                resetPasswordMessage.style.color = 'red';
+            }
+        });
+    } else {
+        console.error("Element with id 'reset-password-confirm' not found.");
 }
 
 const formContainer = document.querySelector(".form-container");
@@ -219,5 +260,5 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch((error) => {
                 console.error("Sign-out error:", error);
             });
-    }); 
+    });
 });
